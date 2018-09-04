@@ -1,0 +1,56 @@
+import { Action } from '@ngrx/store';
+import { Employee } from '../models/employee';
+
+/**
+ * For each action type in an action group, make a simple
+ * enum object for all of this group's action types.
+ */
+export enum EmployeeActionTypes {
+    ADDEMPLOYEE = '[Employee] AddEmployee',
+    UPDATEEMPLOYEE = '[Employee] UpdateEmployee',
+    DELETEEMPLOYEE = '[Employee] DeleteEmployee',
+    GETALLEMPLOYEES = '[Employee] GetAllEmployees',
+    GETEMPLOYEE = '[Employee] GetEmployee'
+};
+
+/**
+ * Every action is comprised of at least a type and an optional
+ * payload. Expressing actions as classes enables powerful 
+ * type checking in reducer functions.
+ */
+export class AddEmployee implements Action {
+    readonly type = EmployeeActionTypes.ADDEMPLOYEE;
+
+    constructor(public payload: Employee) { }
+}
+
+export class UpdateEmployee implements Action {
+    readonly type = EmployeeActionTypes.UPDATEEMPLOYEE;
+
+    constructor(public payload: number) { }
+}
+
+export class DeleteEmployee implements Action {
+    readonly type = EmployeeActionTypes.DELETEEMPLOYEE;
+
+    constructor(public payload: number) { }
+}
+
+export class GetAllEmployees implements Action {
+    readonly type = EmployeeActionTypes.GETALLEMPLOYEES;
+
+    constructor(public payload: Employee[]) { }
+}
+
+export class GetEmployee implements Action {
+    readonly type = EmployeeActionTypes.GETALLEMPLOYEES;
+
+    constructor(public payload: number) { }
+}
+
+
+/**
+ * Export a type alias of all actions in this action group
+ * so that reducers can easily compose action types
+ */
+export type ClassActions = AddEmployee| UpdateEmployee | DeleteEmployee | GetAllEmployees | GetEmployee;

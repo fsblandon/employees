@@ -12,4 +12,6 @@ export class NemployeeComponent implements OnInit {
   ngOnInit() {
   }
 
+  addEmployee(){}
+
 }

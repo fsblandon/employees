@@ -8,6 +8,11 @@ import { EmployeeComponent } from './components/employee/employee.component';
 import { RouterModule } from "@angular/router";
 import { NemployeeComponent } from './components/nemployee/nemployee.component';
 
+//NGRX
+import { StoreModule } from '@ngrx/store';
+import { reducer } from './reducers/employee.reducers';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +27,10 @@ import { NemployeeComponent } from './components/nemployee/nemployee.component';
       {path: 'employee/:id', component: EmployeeComponent},
       {path: '', component: DashboardComponent},
       {path: '**', redirectTo:'/'}
-    ])
+    ]),
+    StoreModule.forRoot({
+      employee: reducer
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

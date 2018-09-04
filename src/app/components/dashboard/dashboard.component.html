@@ -4,8 +4,8 @@
   <div class="row title">
     <div class="col-md-4"><h1>Employees</h1></div>
     <div class="col-md-6">
-        <i class="fa fa-search" aria-hidden="true"></i>
-        <input class="searchInput" type="text" placeholder="Search" aria-label="Search">
+      <i class="fa fa-search" aria-hidden="true"></i>
+      <input class="searchInput" type="text" placeholder="Search" aria-label="Search">
     </div>
   </div>
 
@@ -33,5 +33,13 @@
         </tr>
       </tbody>
   </table>
+
+  <div class="row">
+    <div class="col-md-4">
+      <button type="button" 
+              class="btn btn-success"
+              [routerLink]="['/newemployee']">Add Employee</button>
+    </div>
+  </div>
 
 </div>
