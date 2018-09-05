@@ -1,21 +1,25 @@
-<div class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Add Employee</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Modal body text goes here.</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" 
-                class="btn btn-primary"
-                (click)="addEmployee()">Save changes</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      </div>
-    </div>
+<div class="container-fluid">
+  <div class="row title">
+    <h1 style="margin-left: 15px;">New Employee</h1>
   </div>
+
+  <div class="row">
+    <form [formGroup]="EmployeeForm" 
+          (ngSubmit)="onSubmit()">
+      <div class="col-md-6 inputForm">
+        <input type="text"
+                placeholder="Name"
+                formControlName="name"> 
+      </div>
+      <div class="col-md-6 inputForm">
+        <input type="text"
+                placeholder="Dob" 
+                formControlName="dob"> 
+      </div>
+
+    </form>
+
+  </div>
+
+
 </div>

@@ -27,7 +27,10 @@ export class AddEmployee implements Action {
 export class UpdateEmployee implements Action {
     readonly type = EmployeeActionTypes.UPDATEEMPLOYEE;
 
-    constructor(public payload: number) { }
+    constructor(
+        public payload: number, 
+        public changes: Partial<Employee>
+    ) { }
 }
 
 export class DeleteEmployee implements Action {

@@ -12,6 +12,8 @@ import { NemployeeComponent } from './components/nemployee/nemployee.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/employee.reducers';
 
+import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { reducer } from './reducers/employee.reducers';
     ]),
     StoreModule.forRoot({
       employee: reducer
-    })
+    }),
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
