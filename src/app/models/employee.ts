@@ -1,5 +1,6 @@
 import { Country } from "./country";
 import { Job } from './job';
+import { Area } from "./jobArea";
 
 export interface Employee {
     id: number,
@@ -10,7 +11,7 @@ export interface Employee {
     username: string,
     hiredate: Date,
     status: boolean,
-    area: string,
+    area: Area,
     jobtitle: Job,
     tiprate: number
 }

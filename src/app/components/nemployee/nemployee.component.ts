@@ -21,11 +21,13 @@ export class NemployeeComponent implements OnInit {
 
   countries: Country[] = [];
 
-  jobtitle: Job[] = [];
+  jobs: Job[] = [];
 
-  area: Area[] = [];
+  areas: Area[] = [];
 
+  isAreaActive: boolean = false;
 
+  isSelectCorrect: boolean = false;
 
   constructor(
     private store: Store<AppState>){ 
@@ -41,46 +43,63 @@ export class NemployeeComponent implements OnInit {
       {id: 3, name: 'France'}
     );
 
-    this.area.push(
-      {id: 0,name: 'Manager'},
+    this.areas.push(
+      {id: 0, name: 'Services'},
       {id: 1, name: 'Kitchen'}
     );
 
-    this.jobtitle.push(
-      {id: 0, name: 'Host', area: this.area[0]},
-      {id: 1, name: 'Tuttofare', area: this.area[0]},
-      {id: 2, name: 'Waitress', area: this.area[0]},
-      {id: 3, name: 'Dining room manager', area: this.area[0]},
-      {id: 4, name: 'Chef', area: this.area[1]},
-      {id: 5, name: 'Sous chef', area: this.area[1]},
-      {id: 6, name: 'Dishwasher', area: this.area[1]},
-      {id: 7, name: 'Cook', area: this.area[1]},
+    this.jobs.push(
+      {id: 0, name: 'Manager'},
+      {id: 1, name: 'Host'},
+      {id: 2, name: 'Tuttofare'},
+      {id: 3, name: 'Waitress'},
+      {id: 4, name: 'Dining room manager'},
+      {id: 5, name: 'Chef'},
+      {id: 6, name: 'Sous chef'},
+      {id: 7, name: 'Dishwasher'},
+      {id: 8, name: 'Cook'},
     );
+
+    console.log(this.areas);
+    
   }
 
+  areaSelected(id: number){
+    if (id == 0) {
+      this.jobs = this.jobs.slice(0,4);
+      this.isAreaActive = true;
+    } else {
+      this.jobs = this.jobs.slice(5,8);
+      this.isAreaActive = true;
+    }
+  }
+
+  changeRate(id: number){
+    if (this.jobs.filter(f => f.id == id)) {
+      this.isSelectCorrect = true;
+    } else {
+      this.isSelectCorrect = false;
+    }
+  }
 
   createFormGroup() {
 
     return new FormGroup({
-      name: new FormControl(),
-      dob: new FormControl(),
+      name: new FormControl(''),
+      dob: new FormControl(''),
       country: new FormGroup({
-        id: new FormControl(),
-        name: new FormControl()
+        name: new FormControl('')
       }),
-      username: new FormControl(),
-      hiredate: new FormControl(),
-      status: new FormControl(),
-      area: new FormControl(),
+      username: new FormControl(''),
+      hiredate: new FormControl(''),
+      status: new FormControl(''),
+      area: new FormGroup({
+        name: new FormControl('')
+      }),
       jobtitle: new FormGroup({
-        id: new FormControl(),
-        area: new FormGroup({
-          id: new FormControl(),
-          name: new FormControl()
-        }),
-        name: new FormControl()
+        name: new FormControl('')
       }),
-      tiprate: new FormControl()
+      tiprate: new FormControl('')
       
     })
   }

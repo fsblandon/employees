@@ -1,3 +1,25 @@
 .inputForm{ 
     margin: 15px;
 }
+
+.inputs{
+    float: right;
+    width: 160px;
+    margin-left: 10px;
+}
+
+.form{
+    width: 60%;
+    margin: 20px;
+}
+
+.card{
+    margin-left: 20px;
+    margin-right: 20px;
+    box-shadow: 5px 10px gray;
+    height: 100%;
+}
+
+.btn-group{
+    width: 100px;
+}

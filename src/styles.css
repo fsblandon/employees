@@ -2,7 +2,8 @@
 
 
 .container-fluid{
-    margin-top: 2%;
+    padding-top: 2%;
+    background-color: midnightblue
 }
 
 .title{
