@@ -8,6 +8,10 @@
           (ngSubmit)="onSubmit()"
           class="form">
 
+          <div class="row">
+
+          
+
           <div class="float-left">
                 <div class="inputForm">
                   <label>Name:</label>
@@ -19,7 +23,9 @@
                   <Label>Dob: </Label>
                   <input type="date"
                           formControlName="dob"
-                          class="inputs"> 
+                          class="inputs"
+                          name="dobD"
+                          (change)="validateAge()"> 
                 </div>
 
                 <div formGroupName="country"
@@ -27,34 +33,13 @@
                     <label>Country: </label>
                     <select formControlName="name"
                             class="dropright btn btn-primary inputs">
+                        <option value="" disabled selected>Please select</option>
                         <option *ngFor="let country of countries" 
                                 [value]="country.name">
                                 {{country.name}}
                         </option>
                     </select>
                 </div>
-                
-
-                <!-- <div formGroupName="country">
-                    <div class="dropdown dropright inputForm" (click)="prueba()">
-                      <label>Country:</label>
-                      <button type="button"
-                              class="btn btn-primary dropdown-toggle inputs"
-                              data-toggle="dropdowm">
-                              COUNTRY
-                      </button>
-                      <div class="dropdown-menu">
-                          <div class="dropdown-item"
-                                formControlName="name"
-                                ngDefaultControl
-                                *ngFor="let country of countries"
-                                value="country.id">
-                                {{country.name}}
-                          </div>
-
-                      </div>
-                    </div>
-                </div> -->
 
                 <div class="inputForm">
                   <label>User Name:</label>
@@ -71,12 +56,14 @@
                 </div>
 
                 <div class="inputForm">
-                  <label class="form-check-label">
-                    Status: 
-                  </label>
-                  <input type="checkbox"
-                          checked
-                          formControlName="status">
+                    <div class="checkbox">
+                        <label>
+                          Status: 
+                          <input type="checkbox" 
+                                  data-toggle="toggle"
+                                  formControlName="status">
+                        </label>
+                    </div>
                 </div>
 
                 
@@ -99,20 +86,6 @@
                                   {{a.name}}
                         </label>
                     </div>
-                    <!-- <label>Area: </label>
-                    <div class="btn-group"
-                          role="group"
-                          aria-label="Basic example"
-                          *ngFor="let a of areas">
-                          
-                      <button type="button" 
-                              class="btn btn-secondary inputs" 
-                              formControlName="name"
-                              (click)="areaSelected(a.id)"
-                              ngDefaultControl>
-                              {{a.name}}
-                      </button>
-                    </div> -->
                 </div>
                 
               </div>
@@ -123,47 +96,41 @@
                     <select formControlName="name"
                             class="dropright btn btn-primary inputs"
                             (change)="changeRate($event.target.value)">
+                        <option value="" disabled selected>Please select</option>
                         <option *ngFor="let job of jobTitles"
                                 [value]="job.name"
                                 #jobSelected>
                                 {{job.name}}
                         </option>
                     </select>
-                </div>
-
-              <!-- <div formGroupName="jobtitle">
-                  <div class="dropdown dropright inputForm">
-                    <label>Job Title: </label>
-                    <button   class="btn btn-primary dropdown-toggle inputs"
-                              type="button" 
-                              data-toggle="dropdown"
-                              [disabled] = "!isAreaActive"
-                              (change)="changeRate()">
-                              Job Title 
-                              <span class="caret"></span>
-                    </button>
-                    <div class="dropdown-menu"
-                          *ngFor="let job of jobs">
-                      <div class="dropdown-item"
-                            formControlName="name"
-                            ngDefaultControl>
-                            {{job.name}}
-                      </div>
-                    </div>
-                  </div>
-              </div> -->
+              </div>
                 
               <div class="inputForm">
                   <label>Tip Rate: </label>
                   <input type="number"
                           formControlName="tiprate"
-                          [attr.disabled]="!isSelectCorrect"
                           class="inputs">
               </div>
 
 
           </div>
+          </div>
       
+          <div class="row">
+            <div class="float-left">
+              <button type="reset" 
+                      class="btn btn-danger inputForm"
+                      [routerLink]="['']">
+                      Cancel
+              </button>
+              <button type="submit" 
+                      class="btn btn-success inputForm"
+                      [disabled]="EmployeeForm.pristine">
+                      Save
+              </button>
+            </div>
+          </div>
+          
       
 
     </form>

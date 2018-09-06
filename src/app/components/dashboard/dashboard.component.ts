@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../../models/employee';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/app.states';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -9,9 +12,12 @@ import { Employee } from '../../models/employee';
 })
 export class DashboardComponent implements OnInit {
 
-  employees: Employee[] = [];
+  /* employees: Employee[] = []; */
+  employees: Observable<Employee[]>;
 
-  constructor() { }
+  constructor(private store: Store<AppState>) {
+    this.employees = store.select('employee'); 
+  }
 
   ngOnInit() {
   }

@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let employee of employees">
+        <tr *ngFor="let employee of employees | async">
           <td>{{employee.name}}-{{employee.jobtitle}}</td>
           <td>{{employee.age}}</td>
           <td>{{employee.username}}</td>

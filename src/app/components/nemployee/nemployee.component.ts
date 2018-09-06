@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/app.states';
-import { FormGroup, FormBuilder, Validators, FormControl } from "@angular/forms";
+import { FormGroup, Validators, FormControl } from "@angular/forms";
 import { Employee } from '../../models/employee';
 import { Country } from '../../models/country';
 import { Area } from '../../models/jobArea';
 import { Job } from '../../models/job';
+
+import * as employeeActions from "../../actions/employee.actions";
 
 @Component({
   selector: 'app-nemployee',
@@ -63,7 +65,6 @@ export class NemployeeComponent implements OnInit {
     );
 
     console.log(this.areas);
-    
   }
 
   areaSelected(id: number){
@@ -73,7 +74,7 @@ export class NemployeeComponent implements OnInit {
       this.jobTitles = this.jobs.slice(0,5);
       this.isAreaActive = true;
       console.log(this.areas[id]);
-      console.log(this.EmployeeForm);
+      
     } else {
       this.jobTitles = this.jobs.slice(5,9);
       this.isAreaActive = true;
@@ -83,16 +84,13 @@ export class NemployeeComponent implements OnInit {
     
   }
 
-  changeRate(value: string){
+  changeRate(value: any){
     console.log(value);
-    
     if (value == 'Waitress' || value == 'Dining room manager') {
-      console.log(this.isSelectCorrect);
-      //this.EmployeeForm.controls['tiprate'].enabled;
-      this.isSelectCorrect = true;
+      this.EmployeeForm.get('tiprate').enable();
+      this.EmployeeForm.get('tiprate').reset();
     } else {
-      console.log(this.isSelectCorrect);
-      this.isSelectCorrect = false;
+      this.EmployeeForm.get('tiprate').disable();
     }
   }
 
@@ -100,24 +98,54 @@ export class NemployeeComponent implements OnInit {
 
     return new FormGroup({
       name: new FormControl('', Validators.required),
-      dob: new FormControl('',Validators.required),
+      dob: new FormControl('', Validators.required),
       country: new FormGroup({
         name: new FormControl('', Validators.required)
       }),
       username: new FormControl('', Validators.required),
       hiredate: new FormControl('', Validators.required),
-      status: new FormControl('', Validators.required),
+      status: new FormControl(false, Validators.required),
       area: new FormGroup({
         name: new FormControl('', Validators.required)
       }),
       jobtitle: new FormGroup({
         name: new FormControl('', Validators.required)
       }),
-      tiprate: new FormControl('', Validators.required)
+      tiprate: new FormControl({value: '', disabled: true}, Validators.required)
       
-    })
+    }, Validators.required);
   }
 
-  addEmployee(){}
+  /* compareTwoDates(){
+    if(new Date(this.form.controls['date_end'].value)<new Date(this.form.controls['date_start'].value)){
+       this.error={isError:true,errorMessage:'End Date can't before start date'};
+    }
+  }} */
+
+  validateAge(){
+    let doB = new Date(this.EmployeeForm.controls['dob'].value);
+    let ageDif = Date.now() - doB.getTime();
+    let ageDate = new Date(ageDif);
+    let age = Math.abs(ageDate.getUTCFullYear() - 1970);
+    if (age < 18) {
+      console.log('incorrect age');
+      alert('Dob not valid');
+      this.EmployeeForm.get('dob').reset();
+    }
+    
+  }
+
+  onSubmit(){
+    console.log(this.EmployeeForm);
+    const result: Employee = Object.assign({},this.EmployeeForm.value);
+    
+    result.area = Object.assign({}, result.area);
+    result.country = Object.assign({}, result.country);
+    result.jobtitle = Object.assign({}, result.jobtitle);
+
+    console.log(result);
+    
+    //this.store.dispatch(new employeeActions.AddEmployee(result));
+  }
 
 }
