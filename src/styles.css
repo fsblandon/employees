@@ -3,9 +3,11 @@
 
 .container-fluid{
     padding-top: 2%;
-    background-color: midnightblue
+    background-color: midnightblue;
+    height: 800px;
 }
 
 .title{
     margin-bottom: 20px;
 }
+

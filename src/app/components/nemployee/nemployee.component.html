@@ -22,24 +22,39 @@
                           class="inputs"> 
                 </div>
 
-                <div formGroupName="country">
-                    <div class="dropdown dropright inputForm">
+                <div formGroupName="country"
+                      class="inputForm">
+                    <label>Country: </label>
+                    <select formControlName="name"
+                            class="dropright btn btn-primary inputs">
+                        <option *ngFor="let country of countries" 
+                                [value]="country.name">
+                                {{country.name}}
+                        </option>
+                    </select>
+                </div>
+                
+
+                <!-- <div formGroupName="country">
+                    <div class="dropdown dropright inputForm" (click)="prueba()">
                       <label>Country:</label>
                       <button type="button"
                               class="btn btn-primary dropdown-toggle inputs"
-                              data-toggle="dropdowm">COUNTRY
+                              data-toggle="dropdowm">
+                              COUNTRY
                       </button>
-                      <div class="dropdown-menu"
-                          *ngFor="let country of countries">
+                      <div class="dropdown-menu">
                           <div class="dropdown-item"
                                 formControlName="name"
-                                ngDefaultControl>
+                                ngDefaultControl
+                                *ngFor="let country of countries"
+                                value="country.id">
                                 {{country.name}}
                           </div>
 
                       </div>
                     </div>
-                </div>
+                </div> -->
 
                 <div class="inputForm">
                   <label>User Name:</label>
@@ -71,7 +86,20 @@
 
               <div formGroupName="area">
                 <div class="inputForm">
-                    <label>Area: </label>
+                    <div class="btn-group btn-group-toggle" 
+                          data-toggle="buttons">
+                        <label>Area: </label>
+                        <label class="btn btn-secondary inputs inputArea"
+                                *ngFor="let a of areas">
+                          <input  type="radio"
+                                  name="name"
+                                  formControlName="name"
+                                  (click)="areaSelected(a.id)"
+                                  [value]="a.name">
+                                  {{a.name}}
+                        </label>
+                    </div>
+                    <!-- <label>Area: </label>
                     <div class="btn-group"
                           role="group"
                           aria-label="Basic example"
@@ -80,24 +108,37 @@
                       <button type="button" 
                               class="btn btn-secondary inputs" 
                               formControlName="name"
-                              (change)="areaSelected(a.id)"
+                              (click)="areaSelected(a.id)"
                               ngDefaultControl>
                               {{a.name}}
                       </button>
-                    </div>
+                    </div> -->
                 </div>
                 
               </div>
               
+              <div formGroupName="jobtitle"
+                      class="inputForm">
+                    <label>Job Title: </label>
+                    <select formControlName="name"
+                            class="dropright btn btn-primary inputs"
+                            (change)="changeRate($event.target.value)">
+                        <option *ngFor="let job of jobTitles"
+                                [value]="job.name"
+                                #jobSelected>
+                                {{job.name}}
+                        </option>
+                    </select>
+                </div>
 
-              <div formGroupName="jobtitle">
+              <!-- <div formGroupName="jobtitle">
                   <div class="dropdown dropright inputForm">
                     <label>Job Title: </label>
                     <button   class="btn btn-primary dropdown-toggle inputs"
                               type="button" 
                               data-toggle="dropdown"
                               [disabled] = "!isAreaActive"
-                              (change)="changeRate(job.id)">
+                              (change)="changeRate()">
                               Job Title 
                               <span class="caret"></span>
                     </button>
@@ -110,13 +151,13 @@
                       </div>
                     </div>
                   </div>
-              </div>
+              </div> -->
                 
               <div class="inputForm">
                   <label>Tip Rate: </label>
                   <input type="number"
                           formControlName="tiprate"
-                          [disabled]="!isSelectCorrect"
+                          [attr.disabled]="!isSelectCorrect"
                           class="inputs">
               </div>
 

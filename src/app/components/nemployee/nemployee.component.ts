@@ -29,6 +29,8 @@ export class NemployeeComponent implements OnInit {
 
   isSelectCorrect: boolean = false;
 
+  jobTitles: Job[] = this.jobs;
+
   constructor(
     private store: Store<AppState>){ 
     this.EmployeeForm = this.createFormGroup();
@@ -65,19 +67,31 @@ export class NemployeeComponent implements OnInit {
   }
 
   areaSelected(id: number){
+    console.log(id);
+    
     if (id == 0) {
-      this.jobs = this.jobs.slice(0,4);
+      this.jobTitles = this.jobs.slice(0,5);
       this.isAreaActive = true;
+      console.log(this.areas[id]);
+      console.log(this.EmployeeForm);
     } else {
-      this.jobs = this.jobs.slice(5,8);
+      this.jobTitles = this.jobs.slice(5,9);
       this.isAreaActive = true;
+      console.log(this.areas[id]);
     }
+    console.log(this.jobs);
+    
   }
 
-  changeRate(id: number){
-    if (this.jobs.filter(f => f.id == id)) {
+  changeRate(value: string){
+    console.log(value);
+    
+    if (value == 'Waitress' || value == 'Dining room manager') {
+      console.log(this.isSelectCorrect);
+      //this.EmployeeForm.controls['tiprate'].enabled;
       this.isSelectCorrect = true;
     } else {
+      console.log(this.isSelectCorrect);
       this.isSelectCorrect = false;
     }
   }
@@ -85,21 +99,21 @@ export class NemployeeComponent implements OnInit {
   createFormGroup() {
 
     return new FormGroup({
-      name: new FormControl(''),
-      dob: new FormControl(''),
+      name: new FormControl('', Validators.required),
+      dob: new FormControl('',Validators.required),
       country: new FormGroup({
-        name: new FormControl('')
+        name: new FormControl('', Validators.required)
       }),
-      username: new FormControl(''),
-      hiredate: new FormControl(''),
-      status: new FormControl(''),
+      username: new FormControl('', Validators.required),
+      hiredate: new FormControl('', Validators.required),
+      status: new FormControl('', Validators.required),
       area: new FormGroup({
-        name: new FormControl('')
+        name: new FormControl('', Validators.required)
       }),
       jobtitle: new FormGroup({
-        name: new FormControl('')
+        name: new FormControl('', Validators.required)
       }),
-      tiprate: new FormControl('')
+      tiprate: new FormControl('', Validators.required)
       
     })
   }

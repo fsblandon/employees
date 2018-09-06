@@ -17,9 +17,12 @@
     margin-left: 20px;
     margin-right: 20px;
     box-shadow: 5px 10px gray;
-    height: 100%;
 }
 
 .btn-group{
     width: 100px;
+}
+
+.inputArea:focus-within{
+    background: #007bff;
 }
