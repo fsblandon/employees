@@ -8,6 +8,7 @@ import { Area } from '../../models/jobArea';
 import { Job } from '../../models/job';
 
 import * as employeeActions from "../../actions/employee.actions";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nemployee',
@@ -34,8 +35,10 @@ export class NemployeeComponent implements OnInit {
   jobTitles: Job[] = this.jobs;
 
   constructor(
-    private store: Store<AppState>){ 
+    private store: Store<AppState>,
+    private router: Router){ 
     this.EmployeeForm = this.createFormGroup();
+    
   }
 
   ngOnInit() {
@@ -81,6 +84,8 @@ export class NemployeeComponent implements OnInit {
       console.log(this.areas[id]);
     }
     console.log(this.jobs);
+
+    console.log(this.EmployeeForm);
     
   }
 
@@ -98,44 +103,42 @@ export class NemployeeComponent implements OnInit {
 
     return new FormGroup({
       name: new FormControl('', Validators.required),
-      dob: new FormControl('', Validators.required),
+      dob: new FormControl('',Validators.required),
+      age: new FormControl('',Validators.required),
       country: new FormGroup({
-        name: new FormControl('', Validators.required)
+        name: new FormControl('',Validators.required)
       }),
-      username: new FormControl('', Validators.required),
-      hiredate: new FormControl('', Validators.required),
-      status: new FormControl(false, Validators.required),
+      username: new FormControl('',Validators.required),
+      hiredate: new FormControl('',Validators.required),
+      status: new FormControl('',Validators.required),
       area: new FormGroup({
-        name: new FormControl('', Validators.required)
+        name: new FormControl('',Validators.required)
       }),
       jobtitle: new FormGroup({
-        name: new FormControl('', Validators.required)
+        name: new FormControl('',Validators.required)
       }),
-      tiprate: new FormControl({value: '', disabled: true}, Validators.required)
+      tiprate: new FormControl({value: '',disabled: true})
       
     }, Validators.required);
   }
-
-  /* compareTwoDates(){
-    if(new Date(this.form.controls['date_end'].value)<new Date(this.form.controls['date_start'].value)){
-       this.error={isError:true,errorMessage:'End Date can't before start date'};
-    }
-  }} */
 
   validateAge(){
     let doB = new Date(this.EmployeeForm.controls['dob'].value);
     let ageDif = Date.now() - doB.getTime();
     let ageDate = new Date(ageDif);
     let age = Math.abs(ageDate.getUTCFullYear() - 1970);
+
     if (age < 18) {
       console.log('incorrect age');
       alert('Dob not valid');
       this.EmployeeForm.get('dob').reset();
     }
+
+    this.EmployeeForm.controls['age'].setValue(age);
     
   }
 
-  onSubmit(){
+  onSubmit(): void{
     console.log(this.EmployeeForm);
     const result: Employee = Object.assign({},this.EmployeeForm.value);
     
@@ -145,7 +148,9 @@ export class NemployeeComponent implements OnInit {
 
     console.log(result);
     
-    //this.store.dispatch(new employeeActions.AddEmployee(result));
+    this.store.dispatch(new employeeActions.AddEmployee(result));
+
+    this.router.navigate(['']);
   }
 
 }

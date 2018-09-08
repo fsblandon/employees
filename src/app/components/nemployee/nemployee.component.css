@@ -1,6 +1,4 @@
-.inputForm{ 
-    margin: 15px;
-}
+
 
 .inputs{
     float: right;
@@ -13,11 +11,7 @@
     margin: 20px;
 }
 
-.card{
-    margin-left: 20px;
-    margin-right: 20px;
-    box-shadow: 5px 10px gray;
-}
+
 
 .btn-group{
     width: 100px;

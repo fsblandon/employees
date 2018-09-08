@@ -9,7 +9,6 @@ export enum EmployeeActionTypes {
     ADDEMPLOYEE = '[Employee] AddEmployee',
     UPDATEEMPLOYEE = '[Employee] UpdateEmployee',
     DELETEEMPLOYEE = '[Employee] DeleteEmployee',
-    GETALLEMPLOYEES = '[Employee] GetAllEmployees',
     GETEMPLOYEE = '[Employee] GetEmployee'
 };
 
@@ -27,10 +26,7 @@ export class AddEmployee implements Action {
 export class UpdateEmployee implements Action {
     readonly type = EmployeeActionTypes.UPDATEEMPLOYEE;
 
-    constructor(
-        public payload: number, 
-        public changes: Partial<Employee>
-    ) { }
+    constructor( public payload: number) { }
 }
 
 export class DeleteEmployee implements Action {
@@ -39,14 +35,8 @@ export class DeleteEmployee implements Action {
     constructor(public payload: number) { }
 }
 
-export class GetAllEmployees implements Action {
-    readonly type = EmployeeActionTypes.GETALLEMPLOYEES;
-
-    constructor(public payload: Employee[]) { }
-}
-
 export class GetEmployee implements Action {
-    readonly type = EmployeeActionTypes.GETALLEMPLOYEES;
+    readonly type = EmployeeActionTypes.GETEMPLOYEE;
 
     constructor(public payload: number) { }
 }
@@ -56,4 +46,4 @@ export class GetEmployee implements Action {
  * Export a type alias of all actions in this action group
  * so that reducers can easily compose action types
  */
-export type ClassActions = AddEmployee| UpdateEmployee | DeleteEmployee | GetAllEmployees | GetEmployee;
+export type ClassActions = AddEmployee| UpdateEmployee | DeleteEmployee | GetEmployee;

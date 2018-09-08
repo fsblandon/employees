@@ -1,3 +1,141 @@
-<p>
-  employee works!
-</p>
+<div class="container-fluid">
+    <div class="row title card">
+      <h1 style="margin-left: 15px;">New Employee</h1>
+    </div>
+  
+    <div class="row card">
+      <form [formGroup]="EmployeeForm" 
+            (ngSubmit)="onSubmit()"
+            class="form">
+  
+            <div class="row">
+  
+            
+  
+            <div class="float-left">
+                  <div class="inputForm">
+                    <label>Name:</label>
+                    <input type="text"
+                            formControlName="name"
+                            class="inputs">
+                  </div>
+                  <div class="inputForm">
+                    <Label>Dob: </Label>
+                    <input type="date"
+                            formControlName="dob"
+                            class="inputs"
+                            name="dobD"
+                            (change)="validateAge()"> 
+                  </div>
+  
+                  <div formGroupName="country"
+                        class="inputForm">
+                      <label>Country: </label>
+                      <select formControlName="name"
+                              class="dropright btn btn-primary inputs">
+                          <option value="" disabled selected>Please select</option>
+                          <option *ngFor="let country of countries" 
+                                  [value]="country.name">
+                                  {{country.name}}
+                          </option>
+                      </select>
+                  </div>
+  
+                  <div class="inputForm">
+                    <label>User Name:</label>
+                      <input type="text"
+                              formControlName="username"
+                              class="inputs"> 
+                  </div>
+  
+                  <div class="inputForm">
+                    <label>Hire Date</label>
+                      <input type="date"
+                              formControlName="hiredate"
+                              class="inputs"> 
+                  </div>
+  
+                  <div class="inputForm">
+                      <div class="checkbox">
+                          <label>
+                            Status: 
+                            <input type="checkbox" 
+                                    data-toggle="toggle"
+                                    formControlName="status">
+                          </label>
+                      </div>
+                  </div>
+  
+                  
+            </div>
+  
+            <div class="float-left">
+  
+                <div formGroupName="area">
+                  <div class="inputForm">
+                      <div class="btn-group btn-group-toggle" 
+                            data-toggle="buttons">
+                          <label>Area: </label>
+                          <label class="btn btn-secondary inputs inputArea"
+                                  *ngFor="let a of areas">
+                            <input  type="radio"
+                                    name="name"
+                                    formControlName="name"
+                                    (click)="areaSelected(a.id)"
+                                    [value]="a.name">
+                                    {{a.name}}
+                          </label>
+                      </div>
+                  </div>
+                  
+                </div>
+                
+                <div formGroupName="jobtitle"
+                        class="inputForm">
+                      <label>Job Title: </label>
+                      <select formControlName="name"
+                              class="dropright btn btn-primary inputs"
+                              (change)="changeRate($event.target.value)">
+                          <option value="" disabled selected>Please select</option>
+                          <option *ngFor="let job of jobTitles"
+                                  [value]="job.name"
+                                  #jobSelected>
+                                  {{job.name}}
+                          </option>
+                      </select>
+                </div>
+                  
+                <div class="inputForm">
+                    <label>Tip Rate: </label>
+                    <input type="number"
+                            formControlName="tiprate"
+                            class="inputs">
+                </div>
+  
+  
+            </div>
+            </div>
+        
+            <div class="row">
+              <div class="float-left">
+                <button type="reset" 
+                        class="btn btn-danger inputForm"
+                        [routerLink]="['']">
+                        Cancel
+                </button>
+                <button type="submit" 
+                        class="btn btn-success inputForm"
+                        [disabled]="EmployeeForm.pristine">
+                        Save
+                </button>
+              </div>
+            </div>
+            
+        
+  
+      </form>
+  
+    </div>
+  
+  
+  </div>

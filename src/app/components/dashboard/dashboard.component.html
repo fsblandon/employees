@@ -1,44 +1,56 @@
 
 <div class="container-fluid">
-  <div class="row title">
+  <div class="row title card">
     <div class="col-md-4"><h1>Employees</h1></div>
-    <div class="col-md-6">
-      <i class="fa fa-search" aria-hidden="true"></i>
-      <input class="searchInput" type="text" placeholder="Search" aria-label="Search">
-    </div>
+    
   </div>
 
-  <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">Name (Job title)</th>
-          <th scope="col">User Name</th>
-          <th scope="col">Age</th>
-          <th scope="col">Hire Date</th>
-          <th scope="col">Options</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let employee of employees | async">
-          <td>{{employee.name}}-{{employee.jobtitle}}</td>
-          <td>{{employee.age}}</td>
-          <td>{{employee.username}}</td>
-          <td>{{employee.hiredate}}</td>
-          <td>
-            <a [routerLink]="['/employee',employee.id]"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <a [routerLink]="['/employee',employee.id]"><i class="fa fa-eye" aria-hidden="true"></i></a>
-            <a href=""><i class="fa fa-trash" aria-hidden="true"></i></a>
-          </td>
-        </tr>
-      </tbody>
-  </table>
+  <div class="card">
+      <div class="col-md-6">
+          <i class="fa fa-search" aria-hidden="true"></i>
+          <input class="searchInput inputForm" type="text" placeholder="Search" aria-label="Search">
+      </div>
 
-  <div class="row">
-    <div class="col-md-4">
-      <button type="button" 
-              class="btn btn-success"
-              [routerLink]="['/newemployee']">Add Employee</button>
-    </div>
+      <table class="table">
+          <thead class="thead-light">
+            <tr>
+              <th scope="col">Name (Job title)</th>
+              <th scope="col">User Name</th>
+              <th scope="col">Age</th>
+              <th scope="col">Hire Date</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let employee of employees | async; let i = index">
+              <td *ngIf="employee != null">{{employee.name}}({{employee.jobtitle.name}})</td>
+              <td *ngIf="employee != null">{{employee.username}}</td>
+              <td *ngIf="employee != null">{{employee.age}}</td>
+              <td *ngIf="employee != null">{{employee.hiredate}}</td>
+              <td *ngIf="employee != null">
+                <a [routerLink]="['/employee',i]"
+                    (click)="updateEmployee(i)">
+                  <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+                <a [routerLink]="['/employee',i]"
+                    routerLinkActive="active">
+                  <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <a (click)="deleteEmployee(i)"><i class="fa fa-trash" aria-hidden="true"></i></a>
+              </td>
+            </tr>
+          </tbody>
+      </table>
+    
+      <div class="row">
+        <div class="col-md-4">
+          <button type="button" 
+                  class="btn btn-success inputForm"
+                  [routerLink]="['/newemployee']">Add Employee</button>
+        </div>
+      </div>
+
   </div>
+  
 
 </div>
