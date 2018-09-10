@@ -42,12 +42,18 @@ export function reducer(state: Employee[] = [], action: employeeActions.ClassAct
             return [...state, action.payload]
         }
         case employeeActions.EmployeeActionTypes.UPDATEEMPLOYEE: {
-            return [...state,{
-                id: action.payload
-            }]
+            state.filter(t => t.id === action.payload)
+            return state
+            /* return state.map(item => {
+                return item.id === action.payload ? Object.assign({}, item, action.changes) : item
+            }) */
         }
         case employeeActions.EmployeeActionTypes.DELETEEMPLOYEE: {
             state.splice(action.payload, 1)
+            return state
+        }
+        case employeeActions.EmployeeActionTypes.GETEMPLOYEE: {
+            state.filter(t => t.id === action.payload)
             return state
         }
 

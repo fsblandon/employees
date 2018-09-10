@@ -1,0 +1,21 @@
+
+.inputs{
+    float: right;
+    width: 160px;
+    margin-left: 10px;
+}
+
+.form{
+    width: 60%;
+    margin: 20px;
+}
+
+
+
+.btn-group{
+    width: 100px;
+}
+
+.inputArea:focus-within{
+    background: #007bff;
+}

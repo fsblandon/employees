@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Job } from '../../models/job';
 
 import * as employeeActions from "../../actions/employee.actions";
+import { dispatch } from 'rxjs/internal/observable/pairs';
 
 
 @Component({
@@ -39,7 +40,9 @@ export class DashboardComponent implements OnInit {
   updateEmployee(i: number) {
     this.store.dispatch(new employeeActions.UpdateEmployee(i));
     console.log(this.employees);
-    
   }
 
+  viewEmployee(i: number){
+    this.store.dispatch(new employeeActions.GetEmployee(i));
+  }
 }

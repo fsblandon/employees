@@ -1,6 +1,6 @@
 <div class="container-fluid">
     <div class="row title card">
-      <h1 style="margin-left: 15px;">Update Employee</h1>
+      <h1 style="margin-left: 15px;">View Employee</h1>
     </div>
   
     <div class="row card">
@@ -24,8 +24,7 @@
                     <input type="date"
                             formControlName="dob"
                             class="inputs"
-                            name="dobD"
-                            (change)="validateAge()"> 
+                            name="dobD"> 
                   </div>
   
                   <div formGroupName="country"
@@ -77,13 +76,12 @@
                             data-toggle="buttons">
                           <label>Area: </label>
                           <label class="btn btn-secondary inputs inputArea"
-                                  *ngFor="let a of areas">
+                                  *ngFor="let a of areas"
+                                  disabled>
                             <input  type="radio"
                                     name="nameArea"
                                     formControlName="nameArea"
-                                    (click)="areaSelected(a.id)"
-                                    [value]="a.nameArea"
-                                    selected>
+                                    [value]="a.nameArea">
                                     {{a.nameArea}}
                           </label>
                       </div>
@@ -95,8 +93,7 @@
                         class="inputForm">
                       <label>Job Title: </label>
                       <select formControlName="nameJob"
-                              class="dropright btn btn-primary inputs"
-                              (change)="changeRate($event.target.value)">
+                              class="dropright btn btn-primary inputs">
                           <option value="" disabled selected>Please select</option>
                           <option *ngFor="let job of jobTitles"
                                   [value]="job.nameJob"
@@ -120,15 +117,15 @@
             <div class="row">
               <div class="float-left">
                 <button type="reset" 
-                        class="btn btn-danger inputForm"
+                        class="btn btn-success inputForm"
                         [routerLink]="['']">
-                        Cancel
+                        Accept
                 </button>
-                <button type="submit" 
+                <!-- <button type="submit" 
                         class="btn btn-success inputForm"
                         [disabled]="EmployeeForm.pristine">
                         Save
-                </button>
+                </button> -->
               </div>
             </div>
             

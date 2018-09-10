@@ -13,6 +13,7 @@ import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/employee.reducers';
 
 import { ReactiveFormsModule } from '@angular/forms';
+import { UemployeeComponent } from './components/uemployee/uemployee.component';
 
 
 @NgModule({
@@ -20,13 +21,15 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppComponent,
     DashboardComponent,
     EmployeeComponent,
-    NemployeeComponent
+    NemployeeComponent,
+    UemployeeComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot([
       {path: 'newemployee', component: NemployeeComponent},
       {path: 'employee/:id', component: EmployeeComponent},
+      {path: 'updateemployee/:id', component: UemployeeComponent},
       {path: '', component: DashboardComponent},
       {path: '**', redirectTo:'/'}
     ]),

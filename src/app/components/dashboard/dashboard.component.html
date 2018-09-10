@@ -28,12 +28,12 @@
               <td *ngIf="employee != null">{{employee.age}}</td>
               <td *ngIf="employee != null">{{employee.hiredate}}</td>
               <td *ngIf="employee != null">
-                <a [routerLink]="['/employee',i]"
-                    (click)="updateEmployee(i)">
+                <a [routerLink]="['/updateemployee',i]"
+                    (click)="updateEmployee(i, employee)">
                   <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>
                 <a [routerLink]="['/employee',i]"
-                    routerLinkActive="active">
+                    (click)="viewEmployee(i)">
                   <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
                 <a (click)="deleteEmployee(i)"><i class="fa fa-trash" aria-hidden="true"></i></a>

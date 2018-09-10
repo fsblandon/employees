@@ -13,11 +13,11 @@ import { Observable, from } from 'rxjs';
 
 
 @Component({
-  selector: 'app-employee',
-  templateUrl: './employee.component.html',
-  styleUrls: ['./employee.component.css']
+  selector: 'app-uemployee',
+  templateUrl: './uemployee.component.html',
+  styleUrls: ['./uemployee.component.css']
 })
-export class EmployeeComponent implements OnInit {
+export class UemployeeComponent implements OnInit {
 
   EmployeeForm: FormGroup;
   submitted: boolean = false;
@@ -35,6 +35,8 @@ export class EmployeeComponent implements OnInit {
   jobTitles: Job[] = this.jobs;
 
   employees: Observable<Employee[]>
+
+  idurl: number;
 
 
   constructor(
@@ -97,47 +99,54 @@ export class EmployeeComponent implements OnInit {
       tiprate: null
     });
 
-    let idurl: number;
-
     this.activeRoute.params.subscribe((p: Params) => {
-      idurl = p['id'];
-      console.log(idurl);
+      this.idurl = p['id'];
+      console.log(this.idurl);
       
     });
 
-    this.store.select(data => data.employee).subscribe((data) => {
+    this.store.select(data => data.employee)
+      .subscribe((data) => {
 
       console.log(data);
 
       console.log(this.EmployeeForm);
 
+      
 
-      console.log(data.findIndex(item => item.id == idurl));
+      console.log(data.findIndex(item => item.id == this.idurl));
 
-      let dataindex = data.findIndex(item => item.id == idurl)
+      let dataindex = data.findIndex(item => item.id == this.idurl)
 
-      console.log(data[idurl]);
+      console.log(data[this.idurl]);
 
-      this.EmployeeForm.controls['nameEmployee'].setValue(data[idurl].nameEmployee.toString().valueOf());
-      this.EmployeeForm.controls['nameEmployee'].disable();
-      this.EmployeeForm.controls['dob'].setValue(data[idurl].dob);
-      this.EmployeeForm.controls['dob'].disable();
-      this.EmployeeForm.controls['age'].setValue(data[idurl].age);
-      this.EmployeeForm.controls['age'].disable();
-      this.EmployeeForm.patchValue({'country' : data[idurl].country});
-      this.EmployeeForm.controls['country'].disable();
-      this.EmployeeForm.controls['username'].setValue(data[idurl].username.toString().valueOf());
-      this.EmployeeForm.controls['username'].disable();
-      this.EmployeeForm.controls['hiredate'].setValue(data[idurl].hiredate);
-      this.EmployeeForm.controls['hiredate'].disable();
-      this.EmployeeForm.controls['status'].setValue(data[idurl].status);
-      this.EmployeeForm.controls['status'].disable();
-      this.EmployeeForm.patchValue({'area' : data[idurl].area});
-      this.EmployeeForm.controls['area'].disable();
-      this.EmployeeForm.patchValue({'jobtitle' : data[idurl].jobtitle});
-      this.EmployeeForm.controls['jobtitle'].disable();
-      this.EmployeeForm.controls['tiprate'].setValue(data[idurl].tiprate);
-      this.EmployeeForm.controls['tiprate'].disable();
+      //data.forEach(id => {
+
+
+        this.EmployeeForm.controls['nameEmployee'].setValue(data[this.idurl].nameEmployee.toString().valueOf());
+        
+        //this.EmployeeForm.patchValue({'nameEmployee' : id.nameEmployee.toString()});
+        //console.log(this.EmployeeForm.patchValue({'nameEmployee' : id.nameEmployee}));
+        
+        this.EmployeeForm.controls['dob'].setValue(data[this.idurl].dob);
+        this.EmployeeForm.controls['age'].setValue(data[this.idurl].age);
+
+        //country.setValue({'nameCountry' : id.country.nameCountry});
+        this.EmployeeForm.patchValue({'country' : data[this.idurl].country});
+
+        this.EmployeeForm.controls['username'].setValue(data[this.idurl].username.toString().valueOf());
+        this.EmployeeForm.controls['hiredate'].setValue(data[this.idurl].hiredate);
+        this.EmployeeForm.controls['status'].setValue(data[this.idurl].status);
+
+        //area.setValue({'nameArea' : id.area.nameArea});
+        this.EmployeeForm.patchValue({'area' : data[this.idurl].area});
+
+        //jobtitle.setValue({'nameJob' : id.jobtitle.nameJob});
+        this.EmployeeForm.patchValue({'jobtitle' : data[this.idurl].jobtitle});
+
+        this.EmployeeForm.controls['tiprate'].setValue(data[this.idurl].tiprate);
+
+      //});
 
     }, ()=> {
       console.log('error');
@@ -151,7 +160,11 @@ export class EmployeeComponent implements OnInit {
 
   }
 
-  /* areaSelected(id: number){
+  getObjectForm(id: number){
+
+  }
+
+  areaSelected(id: number){
     console.log(id);
     
     if (id == 0) {
@@ -168,9 +181,9 @@ export class EmployeeComponent implements OnInit {
 
     console.log(this.EmployeeForm);
     
-  } */
+  }
 
-  /* changeRate(value: any){
+  changeRate(value: any){
     console.log(value);
     if (value == 'Waitress' || value == 'Dining room manager') {
       this.EmployeeForm.get('tiprate').enable();
@@ -178,9 +191,9 @@ export class EmployeeComponent implements OnInit {
     } else {
       this.EmployeeForm.get('tiprate').disable();
     }
-  } */
+  }
 
-  /* validateAge(){
+  validateAge(){
     let doB = new Date(this.EmployeeForm.controls['dob'].value);
     let ageDif = Date.now() - doB.getTime();
     let ageDate = new Date(ageDif);
@@ -194,10 +207,10 @@ export class EmployeeComponent implements OnInit {
 
     this.EmployeeForm.controls['age'].setValue(age);
     
-  } */
+  }
 
   onSubmit(): void{
-    /* console.log(this.EmployeeForm);
+    console.log(this.EmployeeForm);
     const result: Employee = Object.assign({},this.EmployeeForm.value);
     
     result.area = Object.assign({}, result.area);
@@ -205,8 +218,15 @@ export class EmployeeComponent implements OnInit {
     result.jobtitle = Object.assign({}, result.jobtitle);
 
     console.log(result);
+
+    console.log(this.idurl);
     
-    this.store.dispatch(new employeeActions.AddEmployee(result)); */
+    
+    this.store.dispatch(new employeeActions.UpdateEmployee(this.idurl));
+    console.log(this.store.dispatch(new employeeActions.UpdateEmployee(this.idurl)));
+    
+
+    console.log(this.store.select('employee'));
 
     this.router.navigate(['']);
   }
