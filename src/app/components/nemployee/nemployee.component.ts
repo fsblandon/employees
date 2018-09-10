@@ -34,6 +34,10 @@ export class NemployeeComponent implements OnInit {
 
   jobTitles: Job[] = this.jobs;
 
+  status: boolean = false;
+  
+  tiprates: number;
+
   constructor(
     private store: Store<AppState>,
     private router: Router){ 
@@ -44,34 +48,56 @@ export class NemployeeComponent implements OnInit {
   ngOnInit() {
 
     this.countries.push(
-      {id: 0, name: 'USA'},
-      {id: 1, name: 'Germany'},
-      {id: 2, name: 'Italy'},
-      {id: 3, name: 'France'}
+      {id: 0, nameCountry: 'USA'},
+      {id: 1, nameCountry: 'Germany'},
+      {id: 2, nameCountry: 'Italy'},
+      {id: 3, nameCountry: 'France'}
     );
 
     this.areas.push(
-      {id: 0, name: 'Services'},
-      {id: 1, name: 'Kitchen'}
+      {id: 0, nameArea: 'Services'},
+      {id: 1, nameArea: 'Kitchen'}
     );
 
     this.jobs.push(
-      {id: 0, name: 'Manager'},
-      {id: 1, name: 'Host'},
-      {id: 2, name: 'Tuttofare'},
-      {id: 3, name: 'Waitress'},
-      {id: 4, name: 'Dining room manager'},
-      {id: 5, name: 'Chef'},
-      {id: 6, name: 'Sous chef'},
-      {id: 7, name: 'Dishwasher'},
-      {id: 8, name: 'Cook'},
+      {id: 0, nameJob: 'Manager'},
+      {id: 1, nameJob: 'Host'},
+      {id: 2, nameJob: 'Tuttofare'},
+      {id: 3, nameJob: 'Waitress'},
+      {id: 4, nameJob: 'Dining room manager'},
+      {id: 5, nameJob: 'Chef'},
+      {id: 6, nameJob: 'Sous chef'},
+      {id: 7, nameJob: 'Dishwasher'},
+      {id: 8, nameJob: 'Cook'},
     );
 
     console.log(this.areas);
   }
 
+  createFormGroup() {
+
+    return new FormGroup({
+      nameEmployee: new FormControl('', Validators.required),
+      dob: new FormControl('',Validators.required),
+      age: new FormControl('',Validators.required),
+      country: new FormGroup({
+        nameCountry: new FormControl('',Validators.required)
+      }),
+      username: new FormControl('',Validators.required),
+      hiredate: new FormControl('',Validators.required),
+      status: new FormControl(status ? status : false,Validators.required),
+      area: new FormGroup({
+        nameArea: new FormControl('',Validators.required)
+      }),
+      jobtitle: new FormGroup({
+        nameJob: new FormControl('',Validators.required)
+      }),
+      tiprate: new FormControl(0.01, Validators.required)
+      
+    });
+  }
+
   areaSelected(id: number){
-    console.log(id);
     
     if (id == 0) {
       this.jobTitles = this.jobs.slice(0,5);
@@ -83,9 +109,6 @@ export class NemployeeComponent implements OnInit {
       this.isAreaActive = true;
       console.log(this.areas[id]);
     }
-    console.log(this.jobs);
-
-    console.log(this.EmployeeForm);
     
   }
 
@@ -95,32 +118,16 @@ export class NemployeeComponent implements OnInit {
       this.EmployeeForm.get('tiprate').enable();
       this.EmployeeForm.get('tiprate').reset();
     } else {
-      this.EmployeeForm.get('tiprate').disable();
+      this.tiprates = 0.01;
+      //this.EmployeeForm.get('tiprate').enable();
+      console.log(this.EmployeeForm.controls['tiprate'].value);
+      //this.EmployeeForm.patchValue({'tiprate' : this.tiprates});
+      //this.EmployeeForm.get('tiprate').disable();
+      
     }
   }
 
-  createFormGroup() {
 
-    return new FormGroup({
-      name: new FormControl('', Validators.required),
-      dob: new FormControl('',Validators.required),
-      age: new FormControl('',Validators.required),
-      country: new FormGroup({
-        name: new FormControl('',Validators.required)
-      }),
-      username: new FormControl('',Validators.required),
-      hiredate: new FormControl('',Validators.required),
-      status: new FormControl('',Validators.required),
-      area: new FormGroup({
-        name: new FormControl('',Validators.required)
-      }),
-      jobtitle: new FormGroup({
-        name: new FormControl('',Validators.required)
-      }),
-      tiprate: new FormControl({value: '',disabled: true})
-      
-    }, Validators.required);
-  }
 
   validateAge(){
     let doB = new Date(this.EmployeeForm.controls['dob'].value);
@@ -139,6 +146,7 @@ export class NemployeeComponent implements OnInit {
   }
 
   onSubmit(): void{
+    //this.EmployeeForm.controls['tiprate'].setValue(this.EmployeeForm.controls['tiprate'].value);
     console.log(this.EmployeeForm);
     const result: Employee = Object.assign({},this.EmployeeForm.value);
     

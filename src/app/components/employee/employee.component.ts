@@ -1,15 +1,18 @@
+import { Employee } from './../../models/employee';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { Country } from '../../models/country';
 import { Job } from '../../models/job';
 import { Area } from '../../models/jobArea';
-import { Store } from '@ngrx/store';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Store, select } from '@ngrx/store';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AppState } from '../../store/app.states';
-import { Employee } from '../../models/employee';
 
 import * as employeeActions from "../../actions/employee.actions";
-import { Observable } from 'rxjs';
+import { Observable, from } from 'rxjs';
+import { forEach } from '@angular/router/src/utils/collection';
+
+import * as index from "../dashboard/dashboard.component"
 
 
 @Component({
@@ -41,54 +44,125 @@ export class EmployeeComponent implements OnInit {
     private store: Store<AppState>,
     private router: Router,
     private formBuilder: FormBuilder,
-    private routeActive: ActivatedRoute) {
-
+    private activeRoute: ActivatedRoute) {
       
   }
 
   ngOnInit() {
 
-    this.employee = this.store.select(e => e.employee);
+    this.countries.push(
+      {id: 0, nameCountry: 'USA'},
+      {id: 1, nameCountry: 'Germany'},
+      {id: 2, nameCountry: 'Italy'},
+      {id: 3, nameCountry: 'France'}
+    );
 
-    let e: Employee;
-    this.employee.subscribe(id => {
-      e = id;
+    this.areas.push(
+      {id: 0, nameArea: 'Services'},
+      {id: 1, nameArea: 'Kitchen'}
+    );
+
+    this.jobs.push(
+      {id: 0, nameJob: 'Manager'},
+      {id: 1, nameJob: 'Host'},
+      {id: 2, nameJob: 'Tuttofare'},
+      {id: 3, nameJob: 'Waitress'},
+      {id: 4, nameJob: 'Dining room manager'},
+      {id: 5, nameJob: 'Chef'},
+      {id: 6, nameJob: 'Sous chef'},
+      {id: 7, nameJob: 'Dishwasher'},
+      {id: 8, nameJob: 'Cook'},
+    );
+
+    let country = this.formBuilder.group({
+      nameCountry: ''
     });
 
-    /* this.EmployeeForm = this.formBuilder.group({
-      name: [e.name, Validators.required],
-      dob: [e.dob, Validators.required],
-      age: [e.age, Validators.required],
-      country: [e.country, Validators.required],
-      username: [e.username, Validators.required],
-      hiredate: [e.hiredate, Validators.required],
-      status: [e.status, Validators.required],
-      area: [e.area, Validators.required],
-      jobtitle: [e.jobtitle, Validators.required],
-      tiprate: [e.tiprate, Validators.required]
-    })*/
+    let area = this.formBuilder.group({
+      nameArea: ''
+    });
 
-    return new FormGroup({
-      name: new FormControl(e.name, Validators.required),
-      dob: new FormControl(e.dob,Validators.required),
-      age: new FormControl(e.age,Validators.required),
-      country: new FormGroup({
-        name: new FormControl(e.country,Validators.required)
-      }),
-      username: new FormControl(e.username,Validators.required),
-      hiredate: new FormControl(e.hiredate,Validators.required),
-      status: new FormControl(e.status,Validators.required),
-      area: new FormGroup({
-        name: new FormControl(e.area,Validators.required)
-      }),
-      jobtitle: new FormGroup({
-        name: new FormControl(e.jobtitle,Validators.required)
-      }),
-      tiprate: new FormControl({value: e.tiprate,disabled: true})
+    let jobtitle = this.formBuilder.group({
+      nameJob: ''
+    });
+    
+
+    this.EmployeeForm = this.formBuilder.group({
+      nameEmployee: '',
+      dob: '',
+      age: null,
+      country: country,
+      username: '',
+      hiredate: '',
+      status: false,
+      area: area,
+      jobtitle: jobtitle,
+      tiprate: null
+    });
+
+    let idurl: number;
+
+    this.activeRoute.params.subscribe((p: Params) => {
+      idurl = p['id'];
+      console.log(idurl);
       
-    }, Validators.required);
+    });
+
+    this.store.select(data => data.employee).subscribe((data) => {
+
+      console.log(data);
+
+      console.log(this.EmployeeForm);
+
+      
+
+      console.log(data.findIndex(item => item.id == idurl));
+
+      let dataindex = data.findIndex(item => item.id == idurl)
+
+      console.log(data[idurl]);
+
+      //data.forEach(id => {
+
+
+        this.EmployeeForm.controls['nameEmployee'].setValue(data[idurl].nameEmployee.toString().valueOf());
+        
+        //this.EmployeeForm.patchValue({'nameEmployee' : id.nameEmployee.toString()});
+        //console.log(this.EmployeeForm.patchValue({'nameEmployee' : id.nameEmployee}));
+        
+        this.EmployeeForm.controls['dob'].setValue(data[idurl].dob);
+        this.EmployeeForm.controls['age'].setValue(data[idurl].age);
+
+        //country.setValue({'nameCountry' : id.country.nameCountry});
+        this.EmployeeForm.patchValue({'country' : data[idurl].country});
+
+        this.EmployeeForm.controls['username'].setValue(data[idurl].username.toString().valueOf());
+        this.EmployeeForm.controls['hiredate'].setValue(data[idurl].hiredate);
+        this.EmployeeForm.controls['status'].setValue(data[idurl].status);
+
+        //area.setValue({'nameArea' : id.area.nameArea});
+        this.EmployeeForm.patchValue({'area' : data[idurl].area});
+
+        //jobtitle.setValue({'nameJob' : id.jobtitle.nameJob});
+        this.EmployeeForm.patchValue({'jobtitle' : data[idurl].jobtitle});
+
+        this.EmployeeForm.controls['tiprate'].setValue(data[idurl].tiprate);
+
+      //});
+
+    }, ()=> {
+      console.log('error');
+      
+    });
+
+    console.log(this.EmployeeForm);
+    
 
     console.log(this.employee);
+
+  }
+
+  getObjectForm(id: number){
 
   }
 

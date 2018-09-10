@@ -16,7 +16,7 @@
                 <div class="inputForm">
                   <label>Name:</label>
                   <input type="text"
-                          formControlName="name"
+                          formControlName="nameEmployee"
                           class="inputs">
                 </div>
                 <div class="inputForm">
@@ -31,12 +31,12 @@
                 <div formGroupName="country"
                       class="inputForm">
                     <label>Country: </label>
-                    <select formControlName="name"
+                    <select formControlName="nameCountry"
                             class="dropright btn btn-primary inputs">
                         <option value="" disabled selected>Please select</option>
                         <option *ngFor="let country of countries" 
-                                [value]="country.name">
-                                {{country.name}}
+                                [value]="country.nameCountry">
+                                {{country.nameCountry}}
                         </option>
                     </select>
                 </div>
@@ -76,14 +76,14 @@
                     <div class="btn-group btn-group-toggle" 
                           data-toggle="buttons">
                         <label>Area: </label>
-                        <label class="btn btn-secondary inputs inputArea"
+                        <label class="btn btn-secondary  inputs inputArea"
                                 *ngFor="let a of areas">
                           <input  type="radio"
-                                  name="name"
-                                  formControlName="name"
+                                  name="nameArea"
+                                  formControlName="nameArea"
                                   (click)="areaSelected(a.id)"
-                                  [value]="a.name">
-                                  {{a.name}}
+                                  [value]="a.nameArea">
+                                  {{a.nameArea}}
                         </label>
                     </div>
                 </div>
@@ -93,14 +93,14 @@
               <div formGroupName="jobtitle"
                       class="inputForm">
                     <label>Job Title: </label>
-                    <select formControlName="name"
+                    <select formControlName="nameJob"
                             class="dropright btn btn-primary inputs"
                             (change)="changeRate($event.target.value)">
                         <option value="" disabled selected>Please select</option>
                         <option *ngFor="let job of jobTitles"
-                                [value]="job.name"
+                                [value]="job.nameJob"
                                 #jobSelected>
-                                {{job.name}}
+                                {{job.nameJob}}
                         </option>
                     </select>
               </div>

@@ -4,7 +4,7 @@ import { Area } from "./jobArea";
 
 export interface Employee {
     id: number,
-    name: string,
+    nameEmployee: string,
     dob: Date,
     age: number,
     country: Country,
