@@ -46,8 +46,17 @@ export function reducer(state: Employee[] = [], action: employeeActions.ClassAct
             return state */
             var obj = [
                 ...state,
+                action.payload
             ]
-            return obj
+            console.log(...state);
+            
+            console.log(action.payload);
+
+            //obj.filter(t => t === action.payload.employee)
+
+            console.log(obj);
+
+            return obj.filter(t => t === action.payload)
                 
         }
         case employeeActions.EmployeeActionTypes.DELETEEMPLOYEE: {

@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit {
   }
 
   updateEmployee(i: number, emp: Employee) {
-    this.store.dispatch(new employeeActions.UpdateEmployee(emp));
+    //this.store.dispatch(new employeeActions.UpdateEmployee(emp));
 
     console.log(this.employees$);
   }

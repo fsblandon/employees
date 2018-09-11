@@ -226,7 +226,7 @@ export class UemployeeComponent implements OnInit {
     
     this.store.dispatch(new employeeActions.UpdateEmployee(result));
 
-    //console.log(this.store.dispatch(new employeeActions.UpdateEmployee({id: this.idurl, employee: result['selectedEm']})));
+    //this.store.select(t => t.employee.filter(item => item === result));
     
     console.log(this.store.select('employee'));
 
