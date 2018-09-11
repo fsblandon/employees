@@ -105,6 +105,9 @@ export class UemployeeComponent implements OnInit {
       
     });
 
+    console.log(this.store.select('employee'));
+    
+
     this.store.select(data => data.employee)
       .subscribe((data) => {
 
@@ -114,9 +117,9 @@ export class UemployeeComponent implements OnInit {
 
       
 
-      console.log(data.findIndex(item => item.id == this.idurl));
+      //console.log(data.findIndex(item => item.id == this.idurl));
 
-      let dataindex = data.findIndex(item => item.id == this.idurl)
+      //let dataindex = data.findIndex(item => item.id == this.idurl)
 
       console.log(data[this.idurl]);
 
@@ -221,11 +224,10 @@ export class UemployeeComponent implements OnInit {
 
     console.log(this.idurl);
     
-    
-    this.store.dispatch(new employeeActions.UpdateEmployee(this.idurl));
-    console.log(this.store.dispatch(new employeeActions.UpdateEmployee(this.idurl)));
-    
+    this.store.dispatch(new employeeActions.UpdateEmployee(result));
 
+    //console.log(this.store.dispatch(new employeeActions.UpdateEmployee({id: this.idurl, employee: result['selectedEm']})));
+    
     console.log(this.store.select('employee'));
 
     this.router.navigate(['']);

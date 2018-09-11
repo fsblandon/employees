@@ -9,7 +9,8 @@ export enum EmployeeActionTypes {
     ADDEMPLOYEE = '[Employee] AddEmployee',
     UPDATEEMPLOYEE = '[Employee] UpdateEmployee',
     DELETEEMPLOYEE = '[Employee] DeleteEmployee',
-    GETEMPLOYEE = '[Employee] GetEmployee'
+    GETEMPLOYEE = '[Employee] GetEmployee',
+    LOAD = '[Employee] Load'
 };
 
 /**
@@ -30,7 +31,7 @@ export class UpdateEmployee implements Action {
         public payload: number,
         public changes: Partial<Employee>) 
     { } */
-    constructor(public payload: number){}
+    constructor(public payload: Employee){}
 }
 
 export class DeleteEmployee implements Action {
@@ -44,6 +45,12 @@ export class GetEmployee implements Action {
 
     constructor(public payload: number) { }
 }
+
+export class Load implements Action {
+    readonly type = EmployeeActionTypes.LOAD;
+  
+    constructor() { }
+  }
 
 
 /**

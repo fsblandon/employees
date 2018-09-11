@@ -22,7 +22,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let employee of employees | async; let i = index">
+            <tr *ngFor="let employee of employees$ | async; let i = index">
               <td *ngIf="employee != null">{{employee.nameEmployee}}({{employee.jobtitle.nameJob}})</td>
               <td *ngIf="employee != null">{{employee.username}}</td>
               <td *ngIf="employee != null">{{employee.age}}</td>
