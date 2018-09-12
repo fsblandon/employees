@@ -12,8 +12,12 @@ import { NemployeeComponent } from './components/nemployee/nemployee.component';
 import { StoreModule } from '@ngrx/store';
 import { reducer } from './reducers/employee.reducers';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { UemployeeComponent } from './components/uemployee/uemployee.component';
+
+import { filterEmployee } from "./components/dashboard/filterEmployee.pipe";
+
+
 
 
 @NgModule({
@@ -22,7 +26,8 @@ import { UemployeeComponent } from './components/uemployee/uemployee.component';
     DashboardComponent,
     EmployeeComponent,
     NemployeeComponent,
-    UemployeeComponent
+    UemployeeComponent,
+    filterEmployee
   ],
   imports: [
     BrowserModule,
@@ -36,7 +41,8 @@ import { UemployeeComponent } from './components/uemployee/uemployee.component';
     StoreModule.forRoot({
       employee: reducer
     }),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

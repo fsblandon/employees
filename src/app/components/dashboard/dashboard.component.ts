@@ -22,6 +22,8 @@ export class DashboardComponent implements OnInit {
 
   jobs: Observable<Job>;
 
+  searchtext = "";
+
   constructor(private store: Store<AppState>) {
   }
 
